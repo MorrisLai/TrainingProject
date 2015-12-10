@@ -1,0 +1,125 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Member_Update.aspx.cs" Inherits="Member_Update" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <script src="jquery-1.11.3.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+
+    
+    <style type="text/css">
+        .ui-page {
+	            background-image: url(images/member_bg.jpg);
+	            background-repeat: repeat-x;
+	            background-position: center top;
+        }
+       
+    </style>  
+     
+     <title>更新會員資料</title>
+ 
+   
+</head>
+
+<body class="member">
+<div data-role="page" id="memberLogin">
+    <div data-role="header" data-position="fixed">
+        <h2>更新會員資料</h2>
+    </div>
+    <div data-role="content">
+
+    <form id="form1" runat="server">
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TourguideConnectionString %>" 
+            SelectCommand="SELECT * FROM [Member] where Mem_Email=@Mem_Email" 
+            UpdateCommand="update Member set Mem_Pwd=@Mem_Pwd,Mem_Nation=@Mem_Nation,Mem_City=@Mem_City,Mem_Mobile=@Mem_Mobile where Mem_Id=@Mem_Id">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="Mem_Email" />
+            </SelectParameters>
+
+        </asp:SqlDataSource>
+       
+         <asp:FormView ID="FormView1" runat="server" DataKeyNames="Mem_Id" DataSourceID="SqlDataSource1" 
+             OnItemUpdating="FormView1_ItemUpdating" OnItemUpdated="FormView1_ItemUpdated">
+            <EditItemTemplate>
+                輸入新密碼：
+                <asp:TextBox ID="txtMem_Pwd" runat="server" Text='<%# Bind("Mem_Pwd") %>' />
+                <%--再次確認新密碼：
+                <asp:TextBox ID="txtPWconfirm" runat="server"  Text=""/>--%>
+                <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="密碼不符" ControlToValidate="txtPWconfirm"
+                     ControlToCompare="txtMem_Pwd"></asp:CompareValidator>--%>
+                             
+                <br />
+                國籍:
+                <asp:TextBox ID="txtMem_Nation" runat="server" Text='<%# Bind("Mem_Nation") %>' />
+                <br />
+                城市:
+                <asp:TextBox ID="txtMem_City" runat="server" Text='<%# Bind("Mem_City") %>' />
+                <br />
+                手機號碼:
+                <asp:TextBox ID="txtMem_Mobile" runat="server" Text='<%# Bind("Mem_Mobile") %>' />
+                
+                <br />
+
+                <asp:Button ID="btnUpdate" runat="server" Text="更新"  CommandName="Update"/>
+                <asp:Button ID="btnCancel" runat="server" Text="放棄更新" CommandName="Cancel"  CausesValidation="false"/>
+               
+            </EditItemTemplate>
+           
+            <ItemTemplate>
+
+                會員Email：
+                <asp:Label ID="Mem_EmailLabel" runat="server" Text='<%# Eval("Mem_Email") %>' />
+                <br />
+                目前密碼：
+                <asp:Label ID="Mem_PwdLabel" runat="server" Text='<%# Eval("Mem_Pwd") %>' />
+                <br />
+                姓名：
+                <asp:Label ID="Mem_NameLabel" runat="server" Text='<%# Eval("Mem_Name") %>' />
+                <br />
+                國籍：
+                <asp:Label ID="Mem_NationLabel" runat="server" Text='<%# Eval("Mem_Nation") %>' />
+                <br />
+                城市：
+                <asp:Label ID="Mem_CityLabel" runat="server" Text='<%# Eval("Mem_City") %>' />
+                <br />
+                手機號碼：
+                <asp:Label ID="Mem_MobileLabel" runat="server" Text='<%# Eval("Mem_Mobile") %>' />
+                <br />
+                生日：
+                <asp:Label ID="Mem_BirthLabel" runat="server" Text='<%# Eval("Mem_Birth") %>' />
+                <br />
+                註冊時間：
+                <asp:Label ID="Mem_RegLabel" runat="server" Text='<%# Eval("Mem_Reg") %>' />
+                <br />
+                紅利點數：
+                <asp:Label ID="Mem_PtLabel" runat="server" Text='<%# Eval("Mem_Pt") %>' />
+                <br />
+                等級：
+                <asp:Label ID="Mem_LvlLabel" runat="server" Text='<%# Eval("Mem_Lvl") %>' />
+                <br />
+                <asp:Button ID="btnEdit" runat="server" Text="編輯" CommandName="Edit"/>
+                
+            </ItemTemplate>
+        </asp:FormView>
+</form>
+    </div>
+   
+    <div data-role="footer" data-position="fixed">
+           <div id="nav">
+	        <div class="nav_icon"><a href="index.html"><img src="images/nav_icon1.png" width="32" height="30" alt="首頁" />
+	        <em class="icon_text">首頁</em></a></div>
+	        <div class="nav_icon"><a href="like.html"><img src="images/nav_icon2.png" width="32" height="30" alt="收藏" />
+  	        <em class="icon_text">收藏</em></a></div>
+            <div class="nav_icon"><a href="member.html"><img src="images/nav_icon3.png" width="32" height="30" alt="會員" />
+	        <em class="icon_text">會員</em></a></div>
+            <div class="nav_icon"><a href="set.html"><img src="images/nav_icon4.png" width="32" height="30" alt="設定" />
+	        <em class="icon_text">設定</em></a></div>
+        </div>
+    </div>
+</div>
+   
+
+</body>
+</html>
