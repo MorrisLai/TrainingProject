@@ -20,9 +20,9 @@ public partial class Member_Login : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TourguideConnectionString"].ConnectionString);
-        SqlCommand MyCmd = new SqlCommand("select * from member where Mem_Email = '"+txtID.Text+"' and Mem_Pwd ='"+txtPW.Text+"'", conn);
+        SqlCommand MyCmd = new SqlCommand("select * from member where Mem_Email =@Mem_Name and  Mem_Pwd =@Mem_Pwd", conn);
         SqlDataReader DataReader;
-        MyCmd.Parameters.Add("@Mem_Name ", SqlDbType.VarChar);//SQL的資料型態
+        MyCmd.Parameters.Add("@Mem_Name ", SqlDbType.VarChar);
         MyCmd.Parameters["@Mem_Name "].Value = txtID.Text;
         MyCmd.Parameters.Add("@Mem_Pwd", SqlDbType.VarChar);
         MyCmd.Parameters["@Mem_Pwd"].Value = txtPW.Text;
@@ -53,4 +53,5 @@ public partial class Member_Login : System.Web.UI.Page
             }
         }
     }
+
 
